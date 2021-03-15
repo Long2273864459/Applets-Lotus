@@ -106,6 +106,13 @@
             <version>${dynamic.datasource.version}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.75</version>
+        </dependency>
+
         <!-- freemarker模板引擎，用于定义代码生成模板 -->
         <dependency>
             <groupId>org.freemarker</groupId>
@@ -242,6 +249,11 @@
             <groupId>xml-apis</groupId>
             <artifactId>xml-apis</artifactId>
             <version>${xml-apis.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-support</artifactId>
+            <version>2.3.3</version>
         </dependency>
     </dependencies>
 

@@ -17,17 +17,8 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static cc.mrbird.febs.common.utils.ImagesUtil.convertFileToBase64;
 
 /**
  * @author MrBird
@@ -64,20 +55,6 @@ public class UserController extends BaseController {
     public FebsResponse addUser(@RequestBody @Valid User user) {
         userService.createUser(user);
         return new FebsResponse().success();
-    }
-
-    @GetMapping("test")
-    @ControllerEndpoint(operation = "新增用户", exceptionMessage = "新增用户失败")
-    public FebsResponse test(HttpServletRequest request,
-                             HttpServletResponse response) throws IOException{
-        List<String> list = new ArrayList<>();
-        list.add("/opt/app/wechat/images/微信图片_20210309215058.png");
-        list.add("/opt/app/wechat/images/微信图片_20210310131713.jpg");
-        list.add("/opt/app/wechat/images/微信图片_20210310131709.jpg");
-        List<String> base64List = list.stream().map(imagesPath ->{
-            return convertFileToBase64(imagesPath);
-        }).collect(Collectors.toList());
-        return new FebsResponse().success().data(base64List);
     }
 
     @PostMapping("test")

@@ -16,6 +16,7 @@ public class MailUtil {
             HtmlEmail email=new HtmlEmail();
             //设置邮箱的SMTP服务器
             email.setHostName("smtp.163.com");
+            email.setSslSmtpPort("465");
             //设置发送的字符类型
             email.setCharset("utf-8");
             //收件人邮箱

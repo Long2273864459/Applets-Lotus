@@ -5,7 +5,7 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
 /**
- * @author MrBird
+ * @author Prock.Liy
  */
 @FebsShiro
 public class FebsShiroApplication {

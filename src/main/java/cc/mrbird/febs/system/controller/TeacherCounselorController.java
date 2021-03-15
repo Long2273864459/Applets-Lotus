@@ -16,23 +16,20 @@ import javax.annotation.Resource;
 /**
  * @Author Prock.Liy
  * @Date 2021/3/13 20:54
- * @Descripttion  首页Api
+ * @Descripttion  师资Api
  * @Version 1.0
  */
-@Slf4j
-@Validated
 @RestController
-@RequiredArgsConstructor
-@RequestMapping(value = "home")
-public class HomeController {
+@RequestMapping(value = "teacher")
+public class TeacherCounselorController {
 
     @Resource
     private ITeacherCounselorService iTeacherCounselorService;
 
-    @PostMapping("homePage")
+    @PostMapping("counselor")
     @ControllerEndpoint(operation = "请求出错", exceptionMessage = "请求资源出错")
     @ResponseBody
-    public FebsResponse home() {
-        return new FebsResponse().success().data(iTeacherCounselorService.homePage());
+    public FebsResponse list() {
+        return new FebsResponse().success().data(iTeacherCounselorService.teacherCounselor());
     }
 }

@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import java.util.List;
 
 /**
- * @author MrBird
+ * @author Prock.Liy
  */
 public interface IUserDataPermissionService extends IService<UserDataPermission> {
 

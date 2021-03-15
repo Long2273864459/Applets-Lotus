@@ -1,15 +1,31 @@
 package cc.mrbird.febs.system.service;
 
-import cc.mrbird.febs.common.entity.FebsConstant;
-import cc.mrbird.febs.common.entity.QueryRequest;
+import cc.mrbird.febs.system.entity.TeacherCounselor;
 import cc.mrbird.febs.system.entity.User;
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.springframework.scheduling.annotation.Async;
+
+import java.util.List;
 
 /**
- * @author MrBird
+ * @author Prock.Liy
  */
-public interface ITeacherCounselorService extends IService<User> {
+public interface ITeacherCounselorService extends IService<TeacherCounselor> {
 
+    /**
+     * 首页API
+     * @return jsonObject
+     */
+    JSONObject homePage();
+
+
+    /**
+     * 师资集合
+     */
+    List<TeacherCounselor> teacherCounselorList();
+
+    /**
+     * 师资集合
+     */
+    JSONObject teacherCounselor();
 }

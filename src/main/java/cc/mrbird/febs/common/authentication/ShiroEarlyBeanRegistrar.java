@@ -54,8 +54,10 @@ public class ShiroEarlyBeanRegistrar {
         filterChainDefinitionMap = Arrays.stream(anonUrls).collect(Collectors.toMap(url -> url, url -> "anon", (a, b) -> b, LinkedHashMap::new));
         // 配置退出过滤器，其中具体的退出代码 Shiro已经替我们实现了
         filterChainDefinitionMap.put("/user/add","anon");
-        filterChainDefinitionMap.put("/user/test","anon");
         filterChainDefinitionMap.put("/user/password/retrieve","anon");
+        filterChainDefinitionMap.put("/home/**","anon");
+        filterChainDefinitionMap.put("/teacher/**","anon");
+        filterChainDefinitionMap.put("/course/**","anon");
         filterChainDefinitionMap.put(shiro.getLogoutUrl(), "logout");
         // 除上以外所有 url都必须认证通过才可以访问，未通过认证自动访问 LoginUrl
         filterChainDefinitionMap.put(FebsConstant.REQUEST_ALL, "user");
