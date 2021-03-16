@@ -1,5 +1,7 @@
 package cc.mrbird.febs.system.service.impl;
 
+import cc.mrbird.febs.common.dto.EmailAccount;
+import cc.mrbird.febs.common.dto.MessageInfo;
 import cc.mrbird.febs.common.entity.FebsConstant;
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.entity.Strings;
@@ -24,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.mail.HtmlEmail;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,6 +43,15 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
+
+    @Value("${spring.mail.username}")
+    private String mailUserName;
+
+    @Value("${spring.mail.host}")
+    private String host;
+
+    @Value("${spring.mail.password}")
+    private String password;
 
     private final UserAuthenticationUpdatedEventPublisher publisher;
     private final IUserDataPermissionService userDataPermissionService;
@@ -163,16 +175,32 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public String retrievePassword(String userName, String email) {
-        User user = baseMapper.findByName(userName);
-        if (Objects.isNull(user)){
-            throw new FebsException("用户名不存在!");
-        }
-        if (!email.equals(user.getEmail())){
-            throw new FebsException("邮箱地址输入有误!");
-        }
-        boolean mailBox = MailUtil.sendMailbox(email,"您在小程序中注册的个人信息为：\n"+"用户名:"+userName+"\n密码为:"+user.getPLAIN());
-        if (!mailBox){
-            throw new FebsException("邮件发送失败，请稍后再试!");
+        try {
+            User user = baseMapper.findByName(userName);
+            if (Objects.isNull(user)){
+                throw new FebsException("用户名不存在!");
+            }
+            if (!email.equals(user.getEmail())){
+                throw new FebsException("邮箱地址输入有误!");
+            }
+            MessageInfo messageInfo = new MessageInfo();
+            messageInfo.setFrom(mailUserName);
+            List<String> toList = new ArrayList<>();
+            toList.add(email);
+            messageInfo.setTo(toList);
+            messageInfo.setSubject("小程序系统邮件");
+            messageInfo.setMsg("您在小程序中注册的个人信息为：\n"+"用户名:"+userName+"\n密码为:"+user.getPLAIN());
+
+            EmailAccount emailAccount = new EmailAccount();
+            emailAccount.setUsername(mailUserName);
+            emailAccount.setPassword(password);
+            emailAccount.setPlace(host);
+            boolean mailBox = MailUtil.sslSend(messageInfo,emailAccount);
+            if (!mailBox){
+                throw new FebsException("邮件发送失败，请稍后再试!");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
         return "密码已发送至注册邮箱,请查收!";
     }

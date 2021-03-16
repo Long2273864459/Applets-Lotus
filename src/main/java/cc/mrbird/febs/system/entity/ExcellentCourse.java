@@ -16,7 +16,7 @@ import java.util.Date;
  * @author Prock.Liy
  */
 @Data
-@TableName("course")
+@TableName("excellent_course")
 @Excel("精品课程表")
 public class ExcellentCourse implements Serializable, Cloneable {
 
@@ -32,7 +32,7 @@ public class ExcellentCourse implements Serializable, Cloneable {
      * 描述图片
      */
     @TableField("IMAGE")
-    private Long image;
+    private String image;
 
     /**
      * 标题

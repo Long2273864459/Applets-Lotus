@@ -1,15 +1,25 @@
 package cc.mrbird.febs.system.service;
 
-import cc.mrbird.febs.common.entity.FebsConstant;
-import cc.mrbird.febs.common.entity.QueryRequest;
-import cc.mrbird.febs.system.entity.User;
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import cc.mrbird.febs.system.entity.CourseIntention;
+import cc.mrbird.febs.system.entity.CourseIntentionDTO;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.springframework.scheduling.annotation.Async;
 
 /**
  * @author Prock.Liy
  */
-public interface ICourseIntentionService extends IService<User> {
+public interface ICourseIntentionService extends IService<CourseIntention> {
 
+    /**
+     * 预约课程列表
+     * @return
+     */
+    JSONObject findCourseIntentionList();
+
+    /**
+     * 预约课程
+     * @param courseIntention
+     * @return
+     */
+    boolean addCourseIntention(CourseIntentionDTO courseIntentionDTO);
 }

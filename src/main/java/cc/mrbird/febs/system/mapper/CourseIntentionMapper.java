@@ -1,16 +1,20 @@
 package cc.mrbird.febs.system.mapper;
 
-import cc.mrbird.febs.system.entity.User;
+import cc.mrbird.febs.system.entity.CourseIntention;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 /**
  * @author Prock.Liy
  */
-public interface CourseIntentionMapper extends BaseMapper<User> {
+public interface CourseIntentionMapper extends BaseMapper<CourseIntention> {
 
+    /**
+     * 查询报名总数
+     * @return
+     */
+    Integer findCount();
+
+    List<CourseIntention> findCourseIntentionList();
 }

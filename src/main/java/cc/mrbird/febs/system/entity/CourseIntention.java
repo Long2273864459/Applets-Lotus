@@ -16,7 +16,7 @@ import java.util.Date;
  * @author Prock.Liy
  */
 @Data
-@TableName("course")
+@TableName("course_intention")
 @Excel("课程表")
 public class CourseIntention implements Serializable, Cloneable {
 
@@ -28,24 +28,34 @@ public class CourseIntention implements Serializable, Cloneable {
     private Long code;
 
     /**
-     * 头像
+     * 用户名
      */
-    @TableField("AVATAR")
-    private String avatar;
+    @TableField("USERNAME")
+    private String username;
 
     /**
-     * 标题
+     * 手机号
      */
-    @TableField("TITLE")
-    private String title;
+    @TableField("MOBILE")
+    private String mobile;
 
     /**
-     * 描述图片
+     * 困惑点
      */
-    @TableField("IMAGE")
-    private Long image;
+    @TableField("CONFUSED")
+    private String confused;
 
+    /**
+     * 地区
+     */
+    @TableField("AREA")
+    private String area;
 
+    /**
+     * 预约天数 ，多少天前
+     */
+    @TableField(exist = false)
+    private String Days;
 
     /**
      * 创建时间

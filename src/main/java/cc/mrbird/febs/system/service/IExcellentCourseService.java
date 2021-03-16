@@ -1,15 +1,29 @@
 package cc.mrbird.febs.system.service;
 
-import cc.mrbird.febs.common.entity.FebsConstant;
-import cc.mrbird.febs.common.entity.QueryRequest;
-import cc.mrbird.febs.system.entity.User;
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import cc.mrbird.febs.system.entity.ExcellentCourse;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.springframework.scheduling.annotation.Async;
 
 /**
  * @author Prock.Liy
  */
-public interface IExcellentCourseService extends IService<User> {
+public interface IExcellentCourseService extends IService<ExcellentCourse> {
+
+    /**
+     * 精品课程集合
+     */
+    JSONObject findExcellentCourseList(String sort,String keyWord);
+
+
+    /**
+     * 精品课程详情
+     */
+    JSONObject findExcellentCourseDetail(Long code);
+
+    /**
+     * 新增精品课程
+     * @param excellentCourse
+     */
+    void addExcellentCourse(ExcellentCourse excellentCourse);
 
 }

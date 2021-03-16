@@ -32,4 +32,22 @@ public class CourseController {
     public FebsResponse Detail(@PathVariable("code") Long code) {
         return new FebsResponse().success().data(iCourseService.findCourseDetail(code));
     }
+
+    @GetMapping("detail/teens")
+    @ControllerEndpoint(operation = "请求出错", exceptionMessage = "请求资源出错")
+    public FebsResponse teens() {
+        return new FebsResponse().success().data(iCourseService.findTeens());
+    }
+
+    @GetMapping("detail/studentStyle")
+    @ControllerEndpoint(operation = "请求出错", exceptionMessage = "请求资源出错")
+    public FebsResponse studentStyle() {
+        return new FebsResponse().success().data(iCourseService.findStudentStyle());
+    }
+
+    @GetMapping("detail/aboutLotus")
+    @ControllerEndpoint(operation = "请求出错", exceptionMessage = "请求资源出错")
+    public FebsResponse aboutLotus() {
+        return new FebsResponse().success().data(iCourseService.findAboutLotus());
+    }
 }

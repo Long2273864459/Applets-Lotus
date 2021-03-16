@@ -38,6 +38,10 @@ spring:
           content:
             enabled: true
             paths: "/**"
+  mail:
+    password: EDAVQBSVLZMRLUPG
+    host: smtp.163.com
+    username: long2273864459@163.com
 
 mybatis-plus:
   type-aliases-package: cc.mrbird.febs.*.entity

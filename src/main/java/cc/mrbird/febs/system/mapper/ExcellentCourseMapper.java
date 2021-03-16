@@ -1,9 +1,7 @@
 package cc.mrbird.febs.system.mapper;
 
-import cc.mrbird.febs.system.entity.User;
+import cc.mrbird.febs.system.entity.ExcellentCourse;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -11,6 +9,12 @@ import java.util.List;
 /**
  * @author Prock.Liy
  */
-public interface ExcellentCourseMapper extends BaseMapper<User> {
+public interface ExcellentCourseMapper extends BaseMapper<ExcellentCourse> {
 
+    /**
+     * 精品课程列表
+     *
+     * @return List<Course>
+     */
+    List<ExcellentCourse> findExcellentCourseList(@Param("sort")String sort,@Param("keyWord") String keyWord);
 }
