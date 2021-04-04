@@ -6,7 +6,7 @@
 ![https://img.shields.io/badge/shiro-1.6.0-orange.svg?longCache=true&style=flat-square](https://img.shields.io/badge/shiro-1.6.0-orange.svg?longCache=true&style=flat-square)
 ![https://img.shields.io/badge/layui-2.5.7-brightgreen.svg?longCache=true&style=flat-square](https://img.shields.io/badge/layui-2.5.7-brightgreen.svg?longCache=true&style=flat-square)
 
-Applets-Lotus是一款简单小程序，使用Spring Boot，Shiro和Layui构建。FEBS意指：**F**ast，**E**asy use，**B**eautiful和**S**afe。相信无论作为企业级应用，私活开发脚手架或者权限系统构建学习，FEBS-Shiro都会是一个不错的选择。
+Applets-Lotus是一款简单小程序，使用Spring Boot，Shiro和Layui构建。
 
 ### 演示地址
 
@@ -25,8 +25,6 @@ scott | 1234qwer | 注册账户，拥有查看，新增权限（新增用户除�
 ---|---|---
 mrbird | 1234qwer |超级管理员，拥有所有增删改查权限
 scott | 1234qwer | 注册账户，拥有查看，新增权限（新增用户除外）和导出Excel权限
-micaela | 1234qwer |系统监测员，负责整个系统监控模块
-Jana   | 1234qwer  |跑批人员，负责任务调度跑批模块
 
 ### 系统模块
 系统功能模块组成如下所示：
