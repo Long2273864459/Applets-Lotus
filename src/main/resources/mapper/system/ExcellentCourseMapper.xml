@@ -25,9 +25,8 @@
             AND sort like CONCAT('%',#{keyWord},'%')
         </if>
         <if test="keyWord != null and keyWord != ''">
-            AND PRICE, like CONCAT('%',#{keyWord},'%')
+            AND PRICE like CONCAT('%',#{keyWord},'%')
         </if>
-
         order by CREATE_TIME ASC
     </select>
 </mapper>

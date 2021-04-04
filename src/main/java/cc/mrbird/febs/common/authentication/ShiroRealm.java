@@ -9,7 +9,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
@@ -19,6 +21,7 @@ import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.crazycake.shiro.RedisCacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -100,6 +103,8 @@ public class ShiroRealm extends AuthorizingRealm {
             throw new LockedAccountException("账号已被锁定,请联系管理员！");
         }
         String deptIds = this.userDataPermissionService.findByUserId(String.valueOf(user.getUserId()));
+        user.setDeptIds(deptIds);
+        // SecurityUtils.getSubject().getSession().setAttribute(SessionConstant.SESS_USER_INFO, user);
         return new SimpleAuthenticationInfo(user, password, getName());
     }
 
@@ -115,6 +120,7 @@ public class ShiroRealm extends AuthorizingRealm {
         List<SimplePrincipalCollection> principals = sessionService.getPrincipals(userId);
         if (CollectionUtils.isNotEmpty(principals)) {
             for (SimplePrincipalCollection principal : principals) {
+                this.onLogout(principal);
                 super.clearCache(principal);
             }
         }

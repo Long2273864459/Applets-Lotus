@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -32,10 +33,9 @@ public class SessionController extends BaseController {
                 .data(getDataTable(list, CollectionUtils.size(list)));
     }
 
-    @GetMapping("delete/{id}")
-    @RequiresPermissions("user:kickout")
-    public FebsResponse forceLogout(@PathVariable String id) {
-        sessionService.forceLogout(id);
+    @GetMapping("delete")
+    public FebsResponse forceLogout(HttpServletRequest request) {
+        sessionService.forceLogout(request.getSession().getId());
         return new FebsResponse().success();
     }
 }

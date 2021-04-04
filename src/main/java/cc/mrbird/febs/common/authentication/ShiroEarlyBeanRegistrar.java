@@ -60,6 +60,9 @@ public class ShiroEarlyBeanRegistrar {
         filterChainDefinitionMap.put("/course/**","anon");
         filterChainDefinitionMap.put("/excellent/**","anon");
         filterChainDefinitionMap.put("/intention/**","anon");
+        filterChainDefinitionMap.put("/user/profile/update","anon");
+        filterChainDefinitionMap.put("/user/shippingAddress","anon");
+        filterChainDefinitionMap.put("/user/userDetail/**","anon");
         filterChainDefinitionMap.put(shiro.getLogoutUrl(), "logout");
         // 除上以外所有 url都必须认证通过才可以访问，未通过认证自动访问 LoginUrl
         filterChainDefinitionMap.put(FebsConstant.REQUEST_ALL, "user");

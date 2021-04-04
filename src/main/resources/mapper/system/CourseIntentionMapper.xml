@@ -3,33 +3,42 @@
 <mapper namespace="cc.mrbird.febs.system.mapper.CourseIntentionMapper">
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cc.mrbird.febs.system.entity.CourseIntention">
-        <id column="CODE" property="code" />
-        <result column="username" property="username" />
-        <result column="mobile" property="mobile" />
-        <result column="confused" property="confused" />
-        <result column="area" property="area" />
+        <id column="CODE" property="code"/>
+        <result column="username" property="username"/>
+        <result column="mobile" property="mobile"/>
+        <result column="confused" property="confused"/>
+        <result column="area" property="area"/>
     </resultMap>
 
     <select id="findCount" resultType="java.lang.Integer">
-        SELECT
-            COUNT(code)
-        FROM
-            course_intention
+        SELECT COUNT(code)
+        FROM course_intention
     </select>
 
     <select id="findCourseIntentionList" resultMap="BaseResultMap">
-        SELECT
-            concat(
-                LEFT (USERNAME, 1),
-                                '****',
-                            RIGHT (USERNAME, 0)
-            ) AS USERNAME,
-                        concat(
-                            LEFT (MOBILE, 3),
-                                '****',
-                            RIGHT (MOBILE, 4)
-            ) AS MOBILE,
-                        DATEDIFF(NOW(),CREATE_TIME) AS Days
+        SELECT concat(
+                   LEFT (USERNAME, 1), '****',
+                   RIGHT (USERNAME, 0)
+            )                               AS USERNAME,
+               concat(
+                   LEFT (MOBILE, 3), '****',
+                   RIGHT (MOBILE, 4)
+            )            AS MOBILE,
+               DATEDIFF(NOW(), CREATE_TIME) AS Days
         FROM course_intention;
+    </select>
+
+    <select id="findListByUserId" resultMap="BaseResultMap">
+        SELECT CODE,
+        USER_ID,
+        USERNAME,
+        MOBILE,
+        CONFUSED,
+        AREA,
+        CREATE_TIME
+        FROM course_intention
+        <if test="userId != null and userId != ''">
+            WHERE USER_ID = #{userId}
+        </if>;
     </select>
 </mapper>

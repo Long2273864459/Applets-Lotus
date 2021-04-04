@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.FileSystemUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -96,6 +97,20 @@ public abstract class FileUtil {
         return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
 
+    /**
+     * 判断是否为图片
+     * @param filename
+     * @return
+     */
+    public static boolean getImageFileType(String filename){
+        if(filename.endsWith(".jpg") || filename.endsWith(".jpeg")){
+            return true;
+        }else if(filename.endsWith(".png") || filename.endsWith(".PNG")){
+            return true;
+        } else{
+            return false;
+        }
+    }
 
     /**
      * 校验文件类型是否是允许下载的类型
@@ -108,6 +123,47 @@ public abstract class FileUtil {
         Preconditions.checkNotNull(fileType);
         fileType = StringUtils.lowerCase(fileType);
         return ArrayUtils.contains(FebsConstant.VALID_FILE_TYPE, fileType);
+    }
+
+    /**
+     * MultipartFile 转 File
+     *
+     * @param file
+     * @throws Exception
+     */
+    public static File multipartFileToFile(MultipartFile file) throws Exception {
+
+        File toFile = null;
+        if (file.equals("") || file.getSize() <= 0) {
+            file = null;
+        } else {
+            InputStream ins = null;
+            ins = file.getInputStream();
+            toFile = new File(file.getOriginalFilename());
+            inputStreamToFile(ins, toFile);
+            ins.close();
+        }
+        return toFile;
+    }
+
+    /**
+     * 获取流文件
+     * @param ins
+     * @param file
+     */
+    private static void inputStreamToFile(InputStream ins, File file) {
+        try {
+            OutputStream os = new FileOutputStream(file);
+            int bytesRead = 0;
+            byte[] buffer = new byte[8192];
+            while ((bytesRead = ins.read(buffer, 0, 8192)) != -1) {
+                os.write(buffer, 0, bytesRead);
+            }
+            os.close();
+            ins.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private static void compress(File file, ZipOutputStream zipOut, String baseDir) throws IOException {

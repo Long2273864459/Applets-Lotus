@@ -22,10 +22,17 @@ public class CourseIntention implements Serializable, Cloneable {
 
     private static final long serialVersionUID = -8222159390250355014L;
     /**
-     * 用户 ID
+     * code
      */
     @TableId(value = "CODE", type = IdType.AUTO)
     private Long code;
+
+    /**
+     * 用户 ID
+     */
+    @TableField("USER_ID")
+    private Long userId;
+
 
     /**
      * 用户名

@@ -42,6 +42,8 @@ spring:
     password: EDAVQBSVLZMRLUPG
     host: smtp.163.com
     username: long2273864459@163.com
+  extranet:
+    ip: 8.136.200.209
 
 mybatis-plus:
   type-aliases-package: cc.mrbird.febs.*.entity

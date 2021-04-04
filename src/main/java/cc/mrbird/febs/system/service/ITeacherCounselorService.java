@@ -21,11 +21,13 @@ public interface ITeacherCounselorService extends IService<TeacherCounselor> {
 
     /**
      * 师资集合
+     * @return JSONObject
      */
     List<TeacherCounselor> teacherCounselorList();
 
     /**
      * 师资集合
+     * @return JSONObject
      */
     JSONObject teacherCounselor();
 }

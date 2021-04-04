@@ -1,7 +1,8 @@
 package cc.mrbird.febs.system.entity;
 
-import cc.mrbird.febs.common.annotation.IsMobile;
 import cc.mrbird.febs.common.converter.TimeConverter;
+import cc.mrbird.febs.common.utils.GenerateShortUuidUtil;
+import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -9,15 +10,17 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
+import lombok.Builder;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
+
+import static cc.mrbird.febs.common.utils.GenerateShortUuidUtil.generateNumber2;
 
 /**
  * @author MrBird
@@ -47,6 +50,17 @@ public class User implements Serializable, Cloneable {
      * 积分
      */
     public static final long INTEGRAL_NUM = 0;
+
+    /**
+     * 会员编号
+     */
+    public static final String MEMBER_ID = generateNumber2();
+
+    /**
+     * 会员编号
+     */
+    public static final long MEMBER_GRADE = 1;
+
     private static final long serialVersionUID = -4352868070794165001L;
     /**
      * 用户 ID
@@ -73,6 +87,18 @@ public class User implements Serializable, Cloneable {
      */
     @TableField("integral")
     private Long integral;
+
+    /**
+     * 会员编号
+     */
+    @TableField("MEMBER_ID")
+    private String memberId;
+
+    /**
+     * 会员等级
+     */
+    @TableField("MEMBER_GRADE")
+    private Long memberGrade;
 
     /**
      * 邮箱
@@ -125,14 +151,36 @@ public class User implements Serializable, Cloneable {
     /**
      * 头像
      */
+    @TableField("RECEIVING_NAME")
+    private String receivingName;
+    /**
+     * 头像
+     */
     @TableField("AVATAR")
     private String avatar;
+    /**
+     * 地区
+     */
+    @TableField("AREA")
+    private String area;
+    /**
+     * 详细地址
+     */
+    @TableField("ADDRESS")
+    private String address;
+
 
     /**
      * 密钥
      */
     @TableField("PLAIN")
     private String PLAIN;
+
+    @TableField(exist = false)
+    private JSONArray areaArray;
+
+    @TableField(exist = false)
+    private String deptIds;
 
     @TableField(exist = false)
     private String createTimeFrom;

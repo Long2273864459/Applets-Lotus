@@ -1,17 +1,15 @@
 /*
  Navicat MySQL Data Transfer
 
- Source Server         : eproe_root
+ Source Server         : lotus
  Source Server Type    : MySQL
  Source Server Version : 50718
- Source Host           : sh-cdb-m8kr6r6o.sql.tencentcdb.com:61986
- Source Schema         : dev_delivery
 
  Target Server Type    : MySQL
  Target Server Version : 50718
  File Encoding         : 65001
 
- Date: 15/03/2021 16:23:54
+ Date: 04/04/2021 09:49:01
 */
 
 SET NAMES utf8mb4;
@@ -34,7 +32,7 @@ CREATE TABLE `course`  (
 -- ----------------------------
 -- Records of course
 -- ----------------------------
-INSERT INTO `course` VALUES (1, 'http://8.136.200.209:8081/pictures/shizi1.jpg', '总裁演讲突破班', 'http://8.136.200.209:8081/pictures/zcyjtpb.jpg', '2021-03-15 15:27:58', NULL);
+INSERT INTO `course` VALUES (1, 'http://8.136.200.209:8081/pictures/shizi1.jpg', '总裁演讲突破班', 'http://8.136.200.209:8081/pictures/zcyjtpb.jpg', '2021-03-08 15:27:58', NULL);
 INSERT INTO `course` VALUES (2, 'http://8.136.200.209:8081/pictures/shizi2.jpg', '演讲改变人生', 'http://8.136.200.209:8081/pictures/yjgbrs.jpg', '2021-03-15 15:30:38', NULL);
 INSERT INTO `course` VALUES (3, 'http://8.136.200.209:8081/pictures/shizi4.jpg', '企业活动主持课', 'http://8.136.200.209:8081/pictures/qyhdzck.jpg', '2021-03-15 15:33:12', NULL);
 INSERT INTO `course` VALUES (4, 'http://8.136.200.209:8081/pictures/shizi6.jpg', '未来领袖初高中', 'http://8.136.200.209:8081/pictures/wllxcgz.jpg', '2021-03-15 15:34:46', NULL);
@@ -48,6 +46,7 @@ INSERT INTO `course` VALUES (7, 'http://8.136.200.209:8081/pictures/shizi4.jpg',
 DROP TABLE IF EXISTS `course_intention`;
 CREATE TABLE `course_intention`  (
   `CODE` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'code',
+  `USER_ID` bigint(20) NULL DEFAULT NULL COMMENT '用户ID',
   `USERNAME` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户名',
   `MOBILE` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '联系电话',
   `CONFUSED` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '困惑点  (1.上台紧张怯场忘词 2.上台发言没话说 3.上台发言没条理 4.上台发言没重点 5.演讲缺少感染力 6.演讲缺少营销力 7.演讲没有说服力 8.演讲没有领导影响力)',
@@ -55,11 +54,20 @@ CREATE TABLE `course_intention`  (
   `CREATE_TIME` datetime(0) NOT NULL COMMENT '创建时间',
   `MODIFY_TIME` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`CODE`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '课程意向表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '课程意向表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of course_intention
 -- ----------------------------
+INSERT INTO `course_intention` VALUES (14, 18, 'Prock.Liy', '18569436426', '[\"上台发言没重点\",\"上台发言没条理\"]', '[\"上海\"]', '2021-03-14 16:47:12', NULL);
+INSERT INTO `course_intention` VALUES (15, 18, 'Prock.Liy', '18569436426', '[\"上台发言没重点\",\"上台发言没条理\"]', '[\"郑州\",\"济南\"]', '2021-03-17 14:04:46', NULL);
+INSERT INTO `course_intention` VALUES (17, NULL, '里斯', '18569436426', '[\"测试\"]', '[\"上海\"]', '2021-03-18 18:51:13', NULL);
+INSERT INTO `course_intention` VALUES (18, NULL, '里斯', '18569436426', '[\"测试\"]', '[\"上海\"]', '2021-03-18 18:54:38', NULL);
+INSERT INTO `course_intention` VALUES (19, NULL, '里斯', '18569436426', '[\"测试\"]', '[\"上海\"]', '2021-03-18 18:54:48', NULL);
+INSERT INTO `course_intention` VALUES (20, NULL, 'aa', '13244412233', '[\"上台紧张怯场忘词\"]', '[\"广州\"]', '2021-03-18 19:07:42', NULL);
+INSERT INTO `course_intention` VALUES (21, NULL, 'www', '13244441111', '[\"上台紧张怯场忘词\",\"演讲缺少感染力\"]', '[\"郑州\",\"济南\"]', '2021-03-18 19:08:07', NULL);
+INSERT INTO `course_intention` VALUES (22, NULL, 'migoo', '13211113333', '[\"演讲缺少感染力\",\"上台发言没条理\"]', '[\"深圳\"]', '2021-03-24 16:42:59', NULL);
+INSERT INTO `course_intention` VALUES (24, NULL, '龙', '18569436426', '[\"上台紧张怯场忘词\",\"演讲缺少营销力\"]', '[\"上海\",\"长沙\"]', '2021-03-24 17:42:47', NULL);
 
 -- ----------------------------
 -- Table structure for excellent_course
@@ -67,19 +75,23 @@ CREATE TABLE `course_intention`  (
 DROP TABLE IF EXISTS `excellent_course`;
 CREATE TABLE `excellent_course`  (
   `CODE` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'code',
-  `IMAGE` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '图片',
+  `IMAGE` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '图片',
   `TITLE` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '标题',
-  `SORT` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '分类',
+  `SORT` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '分类',
   `PRICE` double(11, 2) NULL DEFAULT NULL COMMENT '价格',
   `PRODUCT_MANUAL` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '产品说明',
   `CREATE_TIME` datetime(0) NOT NULL COMMENT '创建时间',
   `MODIFY_TIME` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`CODE`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '精品课程表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '精品课程表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of excellent_course
 -- ----------------------------
+INSERT INTO `excellent_course` VALUES (14, 'http://8.136.200.209:8081/pictures/jpkc1.png', '华为 HUAWEI Mate 40 Pro麒麟9000 SoC芯片 超感知徕卡电影影像 有线无线双超级快充8GB+256GB釉白色5G全网通', '总裁突破班', 6999.00, '牛皮与色彩的结合打造时尚的视觉冲击让经\r\n典在脚下呈现。\r\n手工制作出品质更好的鞋履车缝线。\r\n时尚的金属装饰，让经典的鞋身更有韵味，\r\n起到画龙点睛的作用。', '2021-03-16 11:27:45', NULL);
+INSERT INTO `excellent_course` VALUES (15, 'http://8.136.200.209:8081/pictures/jpkc2.png', '华为 HUAWEI Mate 40E 麒麟990E 5G SoC芯片 超感知徕卡影像 68°曲面屏 8GB+128GB亮黑色5G全网通', '演讲改变命运', 4599.00, '牛皮与色彩的结合打造时尚的视觉冲击让经\r\n典在脚下呈现。\r\n手工制作出品质更好的鞋履车缝线。\r\n时尚的金属装饰，让经典的鞋身更有韵味，\r\n起到画龙点睛的作用。', '2021-03-16 11:51:07', NULL);
+INSERT INTO `excellent_course` VALUES (16, 'http://8.136.200.209:8081/pictures/jpkc3.png', '荣耀Play4T Pro 麒麟810芯片 OLED屏幕指纹 4800万高感光夜拍三摄 22.5W超级快充 全网通8GB+128GB 冰岛幻境', '演说企业内训', 1699.00, '牛皮与色彩的结合打造时尚的视觉冲击让经\r\n典在脚下呈现。\r\n手工制作出品质更好的鞋履车缝线。\r\n时尚的金属装饰，让经典的鞋身更有韵味，\r\n起到画龙点睛的作用。', '2021-03-16 11:53:04', NULL);
+INSERT INTO `excellent_course` VALUES (17, 'http://8.136.200.209:8081/pictures/jpkc4.png', '华为 HUAWEI nova 8 麒麟985 5G SoC芯片 6400万魅力四摄 66W华为超级快充8GB+128GB 亮黑色全网通5G手机', '恰同学少年', 3299.00, '牛皮与色彩的结合打造时尚的视觉冲击让经\r\n典在脚下呈现。\r\n手工制作出品质更好的鞋履车缝线。\r\n时尚的金属装饰，让经典的鞋身更有韵味，\r\n起到画龙点睛的作用。', '2021-03-16 11:53:55', NULL);
 
 -- ----------------------------
 -- Table structure for t_log
@@ -97,8 +109,7 @@ CREATE TABLE `t_log`  (
   `location` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '操作地点',
   PRIMARY KEY (`ID`) USING BTREE,
   INDEX `t_log_create_time`(`CREATE_TIME`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1082 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '操作日志表' ROW_FORMAT = DYNAMIC;
-
+) ENGINE = InnoDB AUTO_INCREMENT = 2971 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '操作日志表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for t_login_log
@@ -114,19 +125,7 @@ CREATE TABLE `t_login_log`  (
   `BROWSER` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '浏览器',
   PRIMARY KEY (`ID`) USING BTREE,
   INDEX `t_login_log_login_time`(`LOGIN_TIME`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 78 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '登录日志表' ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of t_login_log
--- ----------------------------
-INSERT INTO `t_login_log` VALUES (70, 'Scott', '2021-03-01 22:11:02', '内网IP|0|0|内网IP|内网IP', '10.199.162.1', 'Windows 10', 'Chrome 88');
-INSERT INTO `t_login_log` VALUES (71, 'scott', '2021-03-01 22:45:09', '内网IP|0|0|内网IP|内网IP', '10.199.162.1', '', '');
-INSERT INTO `t_login_log` VALUES (72, 'scott', '2021-03-01 23:01:03', '内网IP|0|0|内网IP|内网IP', '10.199.162.1', '', '');
-INSERT INTO `t_login_log` VALUES (73, 'scott', '2021-03-10 12:19:41', '内网IP|0|0|内网IP|内网IP', '10.199.162.1', '', '');
-INSERT INTO `t_login_log` VALUES (74, 'test', '2021-03-10 12:19:54', '内网IP|0|0|内网IP|内网IP', '10.199.162.1', '', '');
-INSERT INTO `t_login_log` VALUES (75, 'test', '2021-03-10 17:55:28', '中国|华东|上海市|上海市|移动', '117.143.0.102', '', '');
-INSERT INTO `t_login_log` VALUES (76, 'migooo', '2021-03-10 18:01:38', '中国|华东|上海市|上海市|移动', '117.135.80.94', '', '');
-INSERT INTO `t_login_log` VALUES (77, 'migooo', '2021-03-10 18:05:00', '中国|华东|上海市|上海市|移动', '117.135.80.94', 'Mac OS X) AppleW', 'Safari Version 10.0 Mo');
+) ENGINE = InnoDB AUTO_INCREMENT = 264 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '登录日志表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for t_menu
@@ -427,6 +426,11 @@ CREATE TABLE `t_user`  (
   `USERNAME` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户名',
   `PASSWORD` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
   `INTEGRAL` bigint(21) NULL DEFAULT NULL COMMENT '积分',
+  `MEMBER_ID` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '会员编号',
+  `RECEIVING_NAME` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '收货人姓名',
+  `AREA` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '地区',
+  `ADDRESS` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '详细地址',
+  `MEMBER_GRADE` bigint(10) NULL DEFAULT NULL COMMENT '会员等级',
   `EMAIL` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮箱',
   `MOBILE` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '联系电话',
   `STATUS` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '状态 0锁定 1有效',
@@ -438,20 +442,22 @@ CREATE TABLE `t_user`  (
   PRIMARY KEY (`USER_ID`) USING BTREE,
   INDEX `t_user_username`(`USERNAME`) USING BTREE,
   INDEX `t_user_mobile`(`MOBILE`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES (1, 'Prock.Liy', 'cb62ad1497597283961545d608f80241', 1, 'mrbird@qq.com', '17788888888', '1', '2019-06-14 20:39:22', '2019-12-04 16:47:11', '2019-12-04 16:48:10', 'cnrhVkzwxjPwAaCfPbdc.png', '');
-INSERT INTO `t_user` VALUES (2, 'Scott', '1d685729d113cfd03872f154939bee1c', 10, 'scott@gmail.com', '17722222222', '1', '2019-06-14 20:55:53', '2019-06-14 21:05:43', '2021-03-01 22:14:23', 'gaOngJwsRYRaVAuXXcmB.png', '');
-INSERT INTO `t_user` VALUES (3, 'Reina', '1461afff857c02afbfb768aa3771503d', 4, 'Reina@hotmail.com', '17711111111', '0', '2019-06-14 21:07:38', '2019-06-14 21:09:06', '2019-06-14 21:08:26', '5997fedcc7bd4cffbd350b40d1b5b987.jpg', '');
-INSERT INTO `t_user` VALUES (4, 'Micaela', '9f2daa2c7bed6870fcbb5b9a51d6300e', 10, 'Micaela@163.com', '17733333333', '1', '2019-06-14 21:10:13', '2019-06-14 21:11:26', '2019-06-14 21:10:37', '20180414165909.jpg', '');
-INSERT INTO `t_user` VALUES (5, 'Jana', '176679b77b3c3e352bd3b30ddc81083e', 8, 'Jana@126.com', '17744444444', '1', '2019-06-14 21:12:16', '2019-06-14 21:12:52', '2019-06-14 21:12:32', '20180414165821.jpg', '');
-INSERT INTO `t_user` VALUES (6, 'Georgie', 'dffc683378cdaa015a0ee9554c532225', 3, 'Georgie@qq.com', '17766666666', '0', '2019-06-14 21:15:09', '2019-06-14 21:16:25', '2019-06-14 21:16:11', 'BiazfanxmamNRoxxVxka.png', '');
-INSERT INTO `t_user` VALUES (7, 'Margot', '31379841b9f4bfde22b8b40471e9a6ce', 9, 'Margot@qq.com', '13444444444', '1', '2019-06-14 21:17:53', '2019-06-14 21:18:59', '2019-06-14 21:18:07', '20180414165834.jpg', '');
-INSERT INTO `t_user` VALUES (12, 'test', '65d45bea2732d9e0f7176ad6137438c3', 0, 'long2273864459@163.com', NULL, '1', '2021-03-10 17:41:36', NULL, NULL, 'default.jpg', 'admin');
-INSERT INTO `t_user` VALUES (13, 'migooo', '6d0e365b73938daa5587c2092dc7118d', 0, '973792099@qq.com', NULL, '1', '2021-03-10 17:50:16', NULL, NULL, 'default.jpg', '111111');
+INSERT INTO `t_user` VALUES (1, 'Mrbird', 'cb62ad1497597283961545d608f80241', 1, NULL, NULL, NULL, '', NULL, 'mrbird@qq.com', '17788888888', '1', '2019-06-14 20:39:22', '2019-12-04 16:47:11', '2019-12-04 16:48:10', 'cnrhVkzwxjPwAaCfPbdc.png', '');
+INSERT INTO `t_user` VALUES (2, 'Scott', 'd0aed741d7b7d104f4df5731329e22a0', 10, NULL, NULL, NULL, '', NULL, 'scott@gmail.com', '17722222222', '1', '2019-06-14 20:55:53', '2021-03-18 12:54:12', '2021-03-01 22:14:23', 'gaOngJwsRYRaVAuXXcmB.png', 'admin');
+INSERT INTO `t_user` VALUES (3, 'Reina', '1461afff857c02afbfb768aa3771503d', 4, NULL, NULL, NULL, '', NULL, 'Reina@hotmail.com', '17711111111', '0', '2019-06-14 21:07:38', '2019-06-14 21:09:06', '2019-06-14 21:08:26', '5997fedcc7bd4cffbd350b40d1b5b987.jpg', '');
+INSERT INTO `t_user` VALUES (4, 'Micaela', '9f2daa2c7bed6870fcbb5b9a51d6300e', 10, NULL, NULL, NULL, '', NULL, 'Micaela@163.com', '17733333333', '1', '2019-06-14 21:10:13', '2019-06-14 21:11:26', '2019-06-14 21:10:37', '20180414165909.jpg', '');
+INSERT INTO `t_user` VALUES (5, 'Jana', '176679b77b3c3e352bd3b30ddc81083e', 8, NULL, NULL, NULL, '', NULL, 'Jana@126.com', '17744444444', '1', '2019-06-14 21:12:16', '2019-06-14 21:12:52', '2019-06-14 21:12:32', '20180414165821.jpg', '');
+INSERT INTO `t_user` VALUES (6, 'Georgie', 'dffc683378cdaa015a0ee9554c532225', 3, NULL, NULL, NULL, '', NULL, 'Georgie@qq.com', '17766666666', '0', '2019-06-14 21:15:09', '2019-06-14 21:16:25', '2019-06-14 21:16:11', 'BiazfanxmamNRoxxVxka.png', '');
+INSERT INTO `t_user` VALUES (7, 'Margot', '31379841b9f4bfde22b8b40471e9a6ce', 9, NULL, NULL, NULL, '', NULL, 'Margot@qq.com', '13444444444', '1', '2019-06-14 21:17:53', '2019-06-14 21:18:59', '2019-06-14 21:18:07', '20180414165834.jpg', '');
+INSERT INTO `t_user` VALUES (13, 'migooo22', 'fb3b6df5acb09d19b2496037e3743e43', 0, NULL, NULL, NULL, '', NULL, '973792099@qq.com', NULL, '1', '2021-03-10 17:50:16', '2021-03-18 18:31:24', NULL, 'default.jpg', '111111');
+INSERT INTO `t_user` VALUES (18, 'admin', '4b252ef32f83fdec9ce52366a161dbc0', 0, '68305294', '龙立亮', '[{\"placeId\":\"430000\",\"placeName\":\"湖南省\"},{\"placeId\":\"430500\",\"placeName\":\"邵阳市\"},{\"placeId\":\"430527\",\"placeName\":\"绥宁县\"}]', '航头镇', 1, 'long2273864459@163.com', '18569436426', '1', '2021-03-18 14:38:03', '2021-03-24 17:45:22', NULL, 'http://8.136.200.209:8081/pictures/banner.jpeg', 'admin');
+INSERT INTO `t_user` VALUES (20, 'migooo', '6d0e365b73938daa5587c2092dc7118d', 0, '12630847', '龙立亮', '[{\"placeId\":\"110000\",\"placeName\":\"北京市\"},{\"placeId\":\"110100\",\"placeName\":\"北京市\"},{\"placeId\":\"110101\",\"placeName\":\"东城区\"}]', '航头镇', 1, '973792099@qq.com', '18569436426', '1', '2021-03-18 19:59:07', '2021-03-24 15:10:09', NULL, 'http://8.136.200.209:8081/pictures/default.jpg', '111111');
+INSERT INTO `t_user` VALUES (21, 'xiaoxin', 'dee4289a7651d5e52f6039e2b72f98a8', NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, '1', '2021-03-20 16:44:15', NULL, NULL, 'default.jpg', 'xiaoxin');
 
 -- ----------------------------
 -- Table structure for t_user_data_permission
@@ -481,6 +487,13 @@ INSERT INTO `t_user_data_permission` VALUES (10, 1);
 INSERT INTO `t_user_data_permission` VALUES (11, 1);
 INSERT INTO `t_user_data_permission` VALUES (12, 1);
 INSERT INTO `t_user_data_permission` VALUES (13, 1);
+INSERT INTO `t_user_data_permission` VALUES (14, 1);
+INSERT INTO `t_user_data_permission` VALUES (15, 1);
+INSERT INTO `t_user_data_permission` VALUES (16, 1);
+INSERT INTO `t_user_data_permission` VALUES (17, 1);
+INSERT INTO `t_user_data_permission` VALUES (18, 1);
+INSERT INTO `t_user_data_permission` VALUES (19, 1);
+INSERT INTO `t_user_data_permission` VALUES (20, 1);
 
 -- ----------------------------
 -- Table structure for t_user_role

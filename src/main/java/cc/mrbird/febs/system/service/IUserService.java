@@ -2,10 +2,12 @@ package cc.mrbird.febs.system.service;
 
 import cc.mrbird.febs.common.entity.FebsConstant;
 import cc.mrbird.febs.common.entity.QueryRequest;
+import cc.mrbird.febs.system.dto.UserShippingAddressDTO;
 import cc.mrbird.febs.system.entity.User;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author Prock.Liy
@@ -99,10 +101,10 @@ public interface IUserService extends IService<User> {
     /**
      * 更新用户头像
      *
-     * @param username 用户名
-     * @param avatar   用户头像
+     * @param code code
+     * @param newProfile   用户头像
      */
-    void updateAvatar(String username, String avatar);
+    void updateAvatar(Long userId, MultipartFile newProfile);
 
     /**
      * 修改用户系统配置（个性化配置）
@@ -120,4 +122,9 @@ public interface IUserService extends IService<User> {
      */
     void updateProfile(User user);
 
+    /**
+     * 添加收货地址
+     * @param userShippingAddressDTO
+     */
+    void addShippingAddress(UserShippingAddressDTO userShippingAddressDTO);
 }

@@ -7,9 +7,16 @@ import cc.mrbird.febs.common.properties.FebsProperties;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.Authenticator;
+import org.apache.shiro.authc.LogoutAware;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.codec.Base64;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.MemorySessionDAO;
+import org.apache.shiro.subject.SimplePrincipalCollection;
+import org.apache.shiro.subject.support.DefaultSubjectContext;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
@@ -27,6 +34,8 @@ import org.springframework.util.Base64Utils;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Objects;
 
 /**
  * Shiro 配置类
@@ -135,7 +144,7 @@ public class ShiroConfigure {
         return new ShiroDialect();
     }
 
-    @Bean
+    @Bean(name = "redisSessionDAO")
     @ConditionOnRedisCache
     public RedisSessionDAO redisSessionDAO() {
         RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
@@ -164,5 +173,28 @@ public class ShiroConfigure {
         sessionManager.setSessionIdUrlRewritingEnabled(false);
         return sessionManager;
     }
+
+    //@Bean
+    //public ShiroRealm customerRealm() {
+    //    ShiroRealm shiroRealm = new ShiroRealm();
+    //    ShiroRealm customerRealm = new ShiroRealm();
+    //    /**
+    //     * 密文匹配的时候，这里需要设置credentialsMatcher()，否则无法匹配
+    //     */
+    //    credentialsMatcher();
+    //    customerRealm.setCredentialsMatcher(credentialsMatcher());
+    //    return customerRealm;
+    //}
+
+    //@Bean
+    //public HashedCredentialsMatcher credentialsMatcher() {
+    //    HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
+    //    credentialsMatcher.setHashAlgorithmName("md5");
+    //    credentialsMatcher.setHashIterations(2);
+    //    // true 密码加密用hex编码; false 用base64编码
+    //    credentialsMatcher.setStoredCredentialsHexEncoded(true);
+    //    return credentialsMatcher;
+    //}
+
 }
 

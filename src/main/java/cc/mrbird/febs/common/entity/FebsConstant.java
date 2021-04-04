@@ -57,4 +57,14 @@ public interface FebsConstant {
     String DAY_START_PATTERN_SUFFIX = " 00:00:00";
     String DAY_END_PATTERN_SUFFIX = " 23:59:59";
 
+    /**
+     * 验证码ey前缀
+     */
+    String VALIDATE_CODE_PREFIX = "febs_captcha_";
+
+    /**
+     * 验证码有效期Key前缀
+     */
+    String VALIDATE_CODE_TIME_PREFIX = "febs_captcha_time_";
+
 }
